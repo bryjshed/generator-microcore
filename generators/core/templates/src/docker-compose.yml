@@ -1,0 +1,88 @@
+version: '3'
+services:
+  <%_ if(kafka) { _%>
+  kafkamanager:
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper
+    image: sheepkiller/kafka-manager:latest
+    ports:
+      - "9<%= portNumber %>:9000"
+    environment:
+      ZK_HOSTS: zookeeper:2181
+      APPLICATION_SECRET: letmein sheepkiller/kafka-manager
+    networks:
+       - mynetwork  
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    ports:
+      - "2<%= portNumber %>:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+       - mynetwork
+  kafka:
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper
+    image: confluentinc/cp-kafka:latest
+    ports:
+      - "9<%= portNumber %>:9092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+    networks:
+       - mynetwork
+  <%_ } _%>
+  <%_ if(addDatabase) { _%>
+  <%_ if(database === 'dynamodb') { _%>
+  database:
+    image: peopleperhour/dynamodb
+    ports: 
+      - 8000:8000
+    networks:
+       - mynetwork
+    expose:
+      - "8000"
+  <%_ } else { _%>
+  database:
+    image: mysql:latest
+    volumes:
+      - db_data:/var/lib/mysql
+    ports: 
+      - 3<%= portNumber %>:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password123
+    networks:
+       - mynetwork
+  <%_ } _%>
+  <%_ } _%>
+  <%= appname.toLowerCase() %>:
+    <%_ if(addDatabase) { _%>
+    depends_on:
+      - database
+    links:
+      - database
+    <%_ } _%>
+    container_name: mh-<%= appname.toLowerCase() %>-service
+    image: mh-<%= appname.toLowerCase() %>-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=dockerdev
+      - VERSION_NUMBER=1.1.0
+      - DEFAULT_CONNECTION=server=database;user=root;database=<%= appname.toLowerCase() %>;password=password123;
+    ports: 
+      - "<%= portNumber %>:<%= portNumber %>"
+    networks:
+       - mynetwork
+volumes:
+    db_data:
+networks:
+  mynetwork:
+     driver: bridge
