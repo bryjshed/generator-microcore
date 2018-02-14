@@ -1,0 +1,8 @@
+version: '3'
+services:
+  <%= appname.toLowerCase() %>:
+    build:
+      context: .
+      dockerfile: Dockerfile.debug
+    volumes: 
+      - ./bin/Debug/netcoreapp1.1/publish/:/app

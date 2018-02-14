@@ -1,0 +1,85 @@
+{
+   // Use IntelliSense to find out which attributes exist for C# debugging
+   // Use hover for the description of the existing attributes
+   // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+   "version": "0.2.0",
+   "configurations": [
+        {
+            "name": ".NET Core Launch (web)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceRoot}/src/<%= namespace %>/bin/Debug/netcoreapp2.0/<%= namespace %>.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}/src/<%= namespace %>",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "launchBrowser": {
+                "enabled": true,
+                "args": "${auto-detect-url}/swagger/index.html",
+                "windows": {
+                    "command": "cmd.exe",
+                    "args": "/C start ${auto-detect-url}/swagger/index.html"
+                },
+                "osx": {
+                    "command": "open"
+                },
+                "linux": {
+                    "command": "xdg-open"
+                }
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "VERSION_NUMBER" : "1.0.0",
+                "DEFAULT_CONNECTION": "server=localhost;user=<%= appname %>User;database=<%= appname %>;password=password123;"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceRoot}/Views"
+            }
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        },
+        {
+            "name": ".NET Core Docker Debug",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "publish",
+            "cwd": "/app",
+            "program": "/app/<%= namespace %>.dll",
+            "sourceFileMap": {
+                "/app": "${workspaceRoot}/src/<%= namespace %>"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "VERSION_NUMBER": "1.0.0",
+                "DEFAULT_CONNECTION": "server=database;user=root;database=<%= appname.toLowerCase() %>;password=password123;"
+            },
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": ["exec", "-i", "mh-<%= appname.toLowerCase() %>-service"],
+                "debuggerPath": "/vsdbg/vsdbg",
+                "pipeCwd": "${workspaceRoot}",
+                "quoteArgs": false
+            },
+            "launchBrowser": {
+                "enabled": true,
+                "args": "${auto-detect-url}/swagger/index.html",
+                "windows": {
+                    "command": "cmd.exe",
+                    "args": "/C start ${auto-detect-url}/swagger/index.html"
+                },
+                "osx": {
+                    "command": "open"
+                },
+                "linux": {
+                    "command": "xdg-open"
+                }
+            }
+        }
+    ]
+}
