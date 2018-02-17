@@ -188,7 +188,7 @@ namespace <%= namespace %>.Tests
             <%_ if(database === 'dynamodb') { _%>
             var provisionDynamodb = app.ApplicationServices.GetService<ProvisionDynamodb>();
             var repo = app.ApplicationServices.GetService<I<%= modelName %>Repository>();
-            RunMigrationAndSeed(provisionDynamodb, repo)
+            RunMigrationAndSeed(provisionDynamodb, repo);
             <%_ } else { _%>
             var context = app.ApplicationServices.GetService<MyTestContext>();
             RunMigrationAndSeed(context);

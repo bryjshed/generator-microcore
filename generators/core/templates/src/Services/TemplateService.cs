@@ -18,7 +18,6 @@ namespace <%= namespace %>
         private readonly ILogger<<%= appname %>Service> _logger;
 
         private readonly IMapper _mapper;
-
         <%_ if(createModel) { _%>
 
         private readonly I<%= modelName %>Repository _<%= modelNameCamel %>Repository;
