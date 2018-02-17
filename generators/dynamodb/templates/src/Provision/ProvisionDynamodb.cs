@@ -11,7 +11,6 @@ namespace <%= namespace %>
     /// </summary>
     public class ProvisionDynamodb
     {
-
         private readonly IAmazonDynamoDB _amazonDynamoDB;
 
         private readonly ILogger _logger;

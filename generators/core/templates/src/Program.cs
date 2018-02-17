@@ -2,10 +2,17 @@ using System;
 using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+<%_ if(addDatabase && database === 'dynamodb') { _%>
+using Amazon.DynamoDBv2.Model;
+using Amazon.DynamoDBv2.DataModel;
+using Amazon.DynamoDBv2;
+<%_ } _%>
+<%_ if(addDatabase && database != 'dynamodb') { _%>
+using Microsoft.EntityFrameworkCore;
+<%_ } _%>
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
