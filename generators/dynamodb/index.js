@@ -25,12 +25,13 @@ module.exports = BaseGenerator.extend({
 
   configuring: function () {
     this.templateOptions = this._createTemplateOptions();
-    this.targetFolderPath = this.options.targetFolderPath ? this.options.targetFolderPath + "/" : "";
-    this.targetTestFolderPath = this.options.targetTestFolderPath ? this.options.targetTestFolderPath + "/" : "";
+    this.targetFolderPath = this.options.targetFolderPath ? this.options.targetFolderPath + '/' : '';
+    this.targetTestFolderPath = this.options.targetTestFolderPath ? this.options.targetTestFolderPath + '/' : '';
   },
 
   writing: function () {
-    //Check if provision file already exits
+    // Check if provision file already exits
+
     const provisonPath = this.destinationPath(this.targetFolderPath + 'Provision/ProvisionDynamodb.cs');
     if (!this.fsExistsSync(provisonPath)) {
       this.fs.copyTpl(this.templatePath('src/Provision/ProvisionDynamodb.cs'), provisonPath, this.templateOptions);
@@ -47,7 +48,8 @@ module.exports = BaseGenerator.extend({
       this.fs.copyTpl(this.templatePath('src/Repositories/TemplateRepository.cs'), this.destinationPath(this.targetFolderPath + 'Repositories/' + this.templateOptions.modelName + 'Repository.cs'), this.templateOptions);
       this.fs.copyTpl(this.templatePath('src/Repositories/PaginatedList.cs'), this.destinationPath(this.targetFolderPath + 'Repositories/PaginatedList.cs'), this.templateOptions);
 
-      //Tests
+      // Tests
+
       this.fs.copyTpl(this.templatePath('test/Stubs/TemplateRepositoryStub.cs'), this.destinationPath(this.targetTestFolderPath + 'Stubs/' + this.templateOptions.modelName + 'Repository.cs'), this.templateOptions);
       this.fs.copyTpl(this.templatePath('test/TemplateDtoTest.cs'), this.destinationPath(this.targetTestFolderPath + this.templateOptions.modelName + 'DtoTest.cs'), this.templateOptions);
       this.fs.copyTpl(this.templatePath('test/TemplateSearchDtoTest.cs'), this.destinationPath(this.targetTestFolderPath + this.templateOptions.modelName + 'SearchDtoTest.cs'), this.templateOptions);

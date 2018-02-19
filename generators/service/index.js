@@ -20,12 +20,12 @@ module.exports = BaseGenerator.extend({
     this.argument('serviceDtoName', {
       type: String,
       required: true
-    })
+    });
   },
   initializing: function () {
     this.templateOptions = this._createTemplateOptions();
-    this.targetFolderPath = this.options.targetFolderPath ? this.options.targetFolderPath + "/" : "";
-    this.targetTestFolderPath = this.options.targetTestFolderPath ? this.options.targetTestFolderPath + "/" : "";
+    this.targetFolderPath = this.options.targetFolderPath ? this.options.targetFolderPath + '/' : '';
+    this.targetTestFolderPath = this.options.targetTestFolderPath ? this.options.targetTestFolderPath + '/' : '';
   },
 
   writing: function () {
@@ -42,7 +42,8 @@ module.exports = BaseGenerator.extend({
     this.fs.copyTpl(this.templatePath('src/TemplateService.cs'), this.destinationPath(this.targetFolderPath + 'Services/External/' + this.templateOptions.serviceName + 'Service.cs'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('src/TemplateDto.cs'), this.destinationPath(this.targetFolderPath + 'Dtos/' + this.templateOptions.serviceDtoName + 'Dto.cs'), this.templateOptions);
 
-    //Tests
+    // Tests
+
     if (!this.fs.exists(this.destinationPath(this.targetTestFolderPath + 'Handlers/FakeResponseHandler.cs'))) {
       this.fs.copyTpl(this.templatePath('test/Handlers/FakeResponseHandler.cs'), this.destinationPath(this.targetTestFolderPath + 'Handlers/FakeResponseHandler.cs'), this.templateOptions);
     }
@@ -60,7 +61,7 @@ module.exports = BaseGenerator.extend({
       appname: this.options.appname,
       serviceName: this.options.serviceName,
       serviceDtoName: this.options.serviceDtoName
-    }
+    };
     return options;
   }
 

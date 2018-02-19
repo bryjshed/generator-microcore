@@ -16,7 +16,7 @@ using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2;
 using Moq;
 <%_ } _%>
-<%_ if(addDatabase && database != 'dynamodb') { _%>
+<%_ if(addDatabase && database !== 'dynamodb') { _%>
 using Microsoft.EntityFrameworkCore;
 <%_ } _%>
 

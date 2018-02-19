@@ -51,7 +51,8 @@ module.exports = BaseGenerator.extend({
     }];
 
     return this.prompt(prompts).then(function (props) {
-      // To access props later use this.props.someAnswer;
+      // To access props later use this.props.someAnswer
+      
       this.props = props;
     }.bind(this));
   },

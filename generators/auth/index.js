@@ -2,7 +2,6 @@
 const BaseGenerator = require('../generator-base');
 const Generator = require('yeoman-generator');
 
-
 module.exports = BaseGenerator.extend({
   constructor: function () {
     Generator.apply(this, arguments);
@@ -18,8 +17,8 @@ module.exports = BaseGenerator.extend({
 
   initializing: function () {
     this.templateOptions = this._createTemplateOptions();
-    this.targetFolderPath = this.options.targetFolderPath ? this.options.targetFolderPath + "/" : "";
-    this.targetTestFolderPath = this.options.targetTestFolderPath ? this.options.targetTestFolderPath + "/" : "";
+    this.targetFolderPath = this.options.targetFolderPath ? this.options.targetFolderPath + '/' : '';
+    this.targetTestFolderPath = this.options.targetTestFolderPath ? this.options.targetTestFolderPath + '/' : '';
   },
 
   writing: function () {
@@ -31,7 +30,8 @@ module.exports = BaseGenerator.extend({
     this.fs.copyTpl(this.templatePath('src/Exceptions/NotAuthorizedException.cs'), this.destinationPath(this.targetFolderPath + 'Exceptions/NotAuthorizedException.cs'), this.templateOptions);
 
     
-    //Tests
+    // Tests
+    
     this.fs.copyTpl(this.templatePath('test/Utils/AuthTokenHelper.cs'), this.destinationPath(this.targetTestFolderPath + 'Utils/AuthTokenHelper.cs'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('test/Handlers/FakeTokenHandler.cs'), this.destinationPath(this.targetTestFolderPath + 'Handlers/FakeTokenHandler.cs'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('test/Handlers/FakeAuthenticationHandler.cs'), this.destinationPath(this.targetTestFolderPath + 'Handlers/FakeAuthenticationHandler.cs'), this.templateOptions);

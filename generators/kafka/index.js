@@ -22,10 +22,11 @@ module.exports = BaseGenerator.extend({
       required: false
     });
   },
+
   initializing: function () {
     this.templateOptions = this._createTemplateOptions();
-    this.targetFolderPath = this.options.targetFolderPath ? this.options.targetFolderPath + "/" : "";
-    this.targetTestFolderPath = this.options.targetTestFolderPath ? this.options.targetTestFolderPath + "/" : "";
+    this.targetFolderPath = this.options.targetFolderPath ? this.options.targetFolderPath + '/' : '';
+    this.targetTestFolderPath = this.options.targetTestFolderPath ? this.options.targetTestFolderPath + '/' : '';
   },
 
   writing: function () {
@@ -34,6 +35,7 @@ module.exports = BaseGenerator.extend({
     this.fs.copyTpl(this.templatePath('src/Kafka/KafkaServiceExtension.cs'), this.destinationPath(this.targetFolderPath + 'Kafka/KafkaServiceExtension.cs'), this.templateOptions);
 
     // Consumer
+
     this.fs.copyTpl(this.templatePath('src/Consumer/TemplateKafkaConsumer.cs'), this.destinationPath(this.targetFolderPath + 'Consumer/' + this.templateOptions.appname + 'KafkaConsumer.cs'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('src/Kafka/Consumer/IKafkaConsumer.cs'), this.destinationPath(this.targetFolderPath + 'Kafka/Consumer/IKafkaConsumer.cs'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('src/Kafka/Consumer/KafkaConsumer.cs'), this.destinationPath(this.targetFolderPath + 'Kafka/Consumer/KafkaConsumer.cs'), this.templateOptions);
@@ -41,13 +43,16 @@ module.exports = BaseGenerator.extend({
     this.fs.copyTpl(this.templatePath('src/Kafka/Consumer/KafkaConsumerManager.cs'), this.destinationPath(this.targetFolderPath + 'Kafka/Consumer/KafkaConsumerManager.cs'), this.templateOptions);
 
     // Producer
+
     this.fs.copyTpl(this.templatePath('src/Kafka/Producer/IKafkaProducer.cs'), this.destinationPath(this.targetFolderPath + 'Kafka/Producer/IKafkaProducer.cs'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('src/Kafka/Producer/KafkaProducer.cs'), this.destinationPath(this.targetFolderPath + 'Kafka/Producer/KafkaProducer.cs'), this.templateOptions);
 
     // Exceptions
+
     this.fs.copyTpl(this.templatePath('src/Kafka/Exceptions/NullTopicException.cs'), this.destinationPath(this.targetFolderPath + 'Kafka/Exceptions/NullTopicException.cs'), this.templateOptions);
 
-    //Tests
+    // Tests
+
     this.fs.copyTpl(this.templatePath('test/Stubs/KafkaConsumerManagerStub.cs'), this.destinationPath(this.targetTestFolderPath + 'Stubs/KafkaConsumerManagerStub.cs'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('test/Stubs/KafkaConsumerStub.cs'), this.destinationPath(this.targetTestFolderPath + 'Stubs/KafkaConsumerStub.cs'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('test/Stubs/KafkaProducerStub.cs'), this.destinationPath(this.targetTestFolderPath + 'Stubs/KafkaProducerStub.cs'), this.templateOptions);

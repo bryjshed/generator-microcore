@@ -24,7 +24,7 @@ using Amazon.DynamoDBv2.Model;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2;
 <%_ } _%>
-<%_ if(addDatabase && database != 'dynamodb') { _%>
+<%_ if(addDatabase && database !== 'dynamodb') { _%>
 using Microsoft.EntityFrameworkCore;
 <%_ } _%>
 
@@ -120,7 +120,7 @@ namespace <%= namespace %>
             <%_ if(addDatabase && database === 'dynamodb') { _%>
             AddAmazonDynamoDB(services);
             <%_ } _%>
-            <%_ if(addDatabase && database != 'dynamodb') { _%>
+            <%_ if(addDatabase && database !== 'dynamodb') { _%>
             AddEntityFramework(services);
             <%_ } _%>
             AddExternalServices(services);
@@ -219,7 +219,7 @@ namespace <%= namespace %>
             <%_ } _%>
             ProvisionDynamodb db)
         <%_ } _%>
-        <%_ if(database != 'dynamodb') { _%>
+        <%_ if(database !== 'dynamodb') { _%>
             <%= appname %>Context db)
         <%_ } _%>
         <%_ } else { _%>

@@ -16,7 +16,7 @@ module.exports = BaseGenerator.extend({
   },
 
   initializing: function () {
-    if (this.options.displayLogo != false) {
+    if (this.options.displayLogo !== false) {
       this.printLogo();
     }
   },

@@ -66,8 +66,8 @@ Apache-2.0 © [MicroCore]()
 
 [npm-image]: https://badge.fury.io/js/generator-microcore.svg
 [npm-url]: https://npmjs.org/package/generator-microcore
-[travis-image]: https://travis-ci.org//generator-microcore.svg?branch=master
-[travis-url]: https://travis-ci.org//generator-microcore
-[daviddm-image]: https://david-dm.org//generator-microcore.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org//generator-microcore
+[travis-image]: https://travis-ci.org/bryjshed/generator-microcore.svg?branch=master
+[travis-url]: https://travis-ci.org/bryjshed/generator-microcore
+[daviddm-image]: https://david-dm.org/generator-microcore.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/generator-microcore
 

@@ -7,15 +7,19 @@ const fs = require('fs');
 class BaseGenerator extends Generator {
   // The name `constructor` is important here
   toCamelCase(str) {
-    if (!str) return;
+    if (!str) {
+      return;
+    }
     return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (letter, index) {
-      return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+      return index === 0 ? letter.toLowerCase() : letter.toUpperCase();
     }).replace(/\s+/g, '');
   }
   toPascalCase(str) {
-    if (!str) return;
+    if (!str) {
+      return;
+    }
     return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (letter, index) {
-      return index == 0 ? letter.toUpperCase() : letter.toUpperCase();
+      return index === 0 ? letter.toUpperCase() : letter.toUpperCase();
     }).replace(/\s+/g, '');
   }
 
@@ -29,7 +33,7 @@ class BaseGenerator extends Generator {
       chalk.blue('██╔████╔██║██║██║     ██████╔╝██║   ██║') + chalk.white('██║     ██║   ██║██████╔╝█████╗  ') + ('\n') +
       chalk.blue('██║╚██╔╝██║██║██║     ██╔══██╗██║   ██║') + chalk.white('██║     ██║   ██║██╔══██╗██╔══╝  ') + ('\n') +
       chalk.blue('██║ ╚═╝ ██║██║╚██████╗██║  ██║╚██████╔╝') + chalk.white('╚██████╗╚██████╔╝██║  ██║███████╗') + ('\n') +
-      chalk.blue('╚═╝     ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝ ') + chalk.white(' ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝') + ('\n') 
+      chalk.blue('╚═╝     ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝ ') + chalk.white(' ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝') + ('\n')
 
     );
     this.log(chalk.white.bold('                            ' + packagejs.homepage + '\n'));
@@ -40,7 +44,7 @@ class BaseGenerator extends Generator {
     return this.destinationPath('src') + '/' + namespace;
   }
   createTestFolderPath(namespace) {
-    return this.destinationPath('test') + '/' + namespace + ".Tests";
+    return this.destinationPath('test') + '/' + namespace + '.Tests';
   }
   containsWord(value, cotains) {
     return value.toLowerCase().includes(cotains.toLowerCase());

@@ -38,6 +38,9 @@
     "extends": "xo-space",
     "env": {
       "mocha": true
+    },
+    "rules": {
+      "linebreak-style": 0
     }
   },
   "repository": "/generator-microcore",

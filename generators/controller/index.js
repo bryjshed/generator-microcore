@@ -40,15 +40,16 @@ module.exports = BaseGenerator.extend({
   },
   configuring: function () {
     this.templateOptions = this._createTemplateOptions();
-    this.targetFolderPath = this.options.targetFolderPath ? this.options.targetFolderPath + "/" : "";
-    this.targetTestFolderPath = this.options.targetTestFolderPath ? this.options.targetTestFolderPath + "/" : "";
+    this.targetFolderPath = this.options.targetFolderPath ? this.options.targetFolderPath + '/' : '';
+    this.targetTestFolderPath = this.options.targetTestFolderPath ? this.options.targetTestFolderPath + '/' : '';
   },
 
   writing: function () {
     if (this.templateOptions.addDatabase && this.templateOptions.createModel) {
       this.fs.copyTpl(this.templatePath('src/TemplateControllerServiceModel.cs'), this.destinationPath(this.targetFolderPath + 'Controllers/' + this.templateOptions.controllerName + 'Controller.cs'), this.templateOptions);
       
-      //Tests
+      // Tests
+      
       this.fs.copyTpl(this.templatePath('test/TemplateContractTest.cs'), this.destinationPath(this.targetTestFolderPath + this.templateOptions.controllerName + 'ContractTest.cs'), this.templateOptions);
       this.fs.copyTpl(this.templatePath('test/TemplateControllerServiceModelTest.cs'), this.destinationPath(this.targetTestFolderPath + this.templateOptions.controllerName + 'ControllerTest.cs'), this.templateOptions);
     } else {
@@ -67,7 +68,7 @@ module.exports = BaseGenerator.extend({
       modelName: this.options.modelName,
       authentication: this.options.authentication,
       modelNameCamel: this.toCamelCase(this.options.modelName),
-      idType: this.options.addDatabase && this.options.database === "dynamodb" ? "string" : "long"
+      idType: this.options.addDatabase && this.options.database === 'dynamodb' ? 'string' : 'long'
     };
     return options;
   }

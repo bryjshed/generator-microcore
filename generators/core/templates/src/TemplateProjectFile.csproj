@@ -68,7 +68,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <%_ if(database != 'dynamodb') { _%>
+    <%_ if(database !== 'dynamodb') { _%>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
     <%_ } _%>
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />

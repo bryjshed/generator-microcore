@@ -3,6 +3,7 @@ const BaseGenerator = require('../generator-base');
 const Generator = require('yeoman-generator');
 
 module.exports = BaseGenerator.extend({
+
   constructor: function () {
     Generator.apply(this, arguments);
     this.argument('namespace', {
@@ -21,8 +22,8 @@ module.exports = BaseGenerator.extend({
 
   initializing: function () {
     this.templateOptions = this._createTemplateOptions();
-    this.targetFolderPath = this.options.targetFolderPath ? this.options.targetFolderPath + "/" : "";
-    this.targetTestFolderPath = this.options.targetTestFolderPath ? this.options.targetTestFolderPath + "/" : "";
+    this.targetFolderPath = this.options.targetFolderPath ? this.options.targetFolderPath + '/' : '';
+    this.targetTestFolderPath = this.options.targetTestFolderPath ? this.options.targetTestFolderPath + '/' : '';
   },
 
   writing: function () {

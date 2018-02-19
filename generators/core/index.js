@@ -22,7 +22,7 @@ module.exports = BaseGenerator.extend({
   },
 
   initializing: function () {
-    if (this.options.displayLogo != false) {
+    if (this.options.displayLogo !== false) {
       this.printLogo();
     }
   },
@@ -35,9 +35,10 @@ module.exports = BaseGenerator.extend({
   },
 
   configuring: function () {
-    //This is the check if the service already exists
-    if (this.props.projectExist == false) {
-      this.env.error("Canceling out of core generator. This is not an error.");
+    // This is the check if the service already exists
+
+    if (this.props.projectExist === false) {
+      this.env.error('Canceling out of core generator. This is not an error.');
     }
     this.templateOptions = this._createTemplateOptions();
     this.targetFolderPath = this.createSrcFolderPath(this.templateOptions.namespace);
@@ -47,11 +48,13 @@ module.exports = BaseGenerator.extend({
   },
 
   writing: function () {
-    //Readme
+    // Readme
+
     this.fs.copyTpl(this.templatePath('README.md'), this.destinationPath('README.md'), this.templateOptions);
 
-    //Src project files
-    this.fs.copyTpl(this.templatePath('src/TemplateProjectFile.csproj'), this.destinationPath(this.targetFolderPath + "/" + this.templateOptions.namespace + '.csproj'), this.templateOptions);
+    // Src project files
+
+    this.fs.copyTpl(this.templatePath('src/TemplateProjectFile.csproj'), this.destinationPath(this.targetFolderPath + '/' + this.templateOptions.namespace + '.csproj'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('src/Startup.cs'), this.destinationPath(this.targetFolderPath + '/Startup.cs'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('src/Program.cs'), this.destinationPath(this.targetFolderPath + '/Program.cs'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('src/appsettings.json'), this.destinationPath(this.targetFolderPath + '/appsettings.json'), this.templateOptions);
@@ -67,6 +70,7 @@ module.exports = BaseGenerator.extend({
     this.fs.copyTpl(this.templatePath('src/Dockerfile.debug'), this.destinationPath(this.targetFolderPath + '/Dockerfile.debug'), this.templateOptions);
 
     // Services
+
     if (this.templateOptions.kafkaConsumer) {
       this.fs.copyTpl(this.templatePath('src/Services/External/ServiceResponse.cs'), this.destinationPath(this.targetFolderPath + '/Services/External/ServiceResponse.cs'), this.templateOptions);
       this.fs.copyTpl(this.templatePath('src/Services/External/BaseService.cs'), this.destinationPath(this.targetFolderPath + '/Services/External/BaseService.cs'), this.templateOptions);
@@ -77,6 +81,7 @@ module.exports = BaseGenerator.extend({
     this.fs.copyTpl(this.templatePath('src/Services/TemplateService.cs'), this.destinationPath(this.targetFolderPath + '/Services/' + this.templateOptions.appname + 'Service.cs'), this.templateOptions);
 
     // Exceptions
+
     this.fs.copyTpl(this.templatePath('src/Exceptions/NotFoundException.cs'), this.destinationPath(this.targetFolderPath + '/Exceptions/NotFoundException.cs'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('src/Exceptions/ServiceException.cs'), this.destinationPath(this.targetFolderPath + '/Exceptions/ServiceException.cs'), this.templateOptions);
 
@@ -93,7 +98,8 @@ module.exports = BaseGenerator.extend({
       this.fs.copyTpl(this.templatePath('vscode/tasks.json'), this.destinationPath('.vscode/tasks.json'), this.templateOptions);
     }
 
-    //Tests
+    // Tests
+
     this.fs.copyTpl(this.templatePath('test/TemplateServiceTest.cs'), this.destinationPath(this.targetTestFolderPath + '/' + this.templateOptions.appname + 'ServiceTest.cs'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('test/TemplateProjectFile.csproj'), this.destinationPath(this.targetTestFolderPath + '/' + this.templateOptions.namespace + '.Tests.csproj'), this.templateOptions);
 
@@ -113,7 +119,7 @@ module.exports = BaseGenerator.extend({
       this.fs.copyTpl(this.templatePath('test/Handlers/FakeResponseHandler.cs'), this.destinationPath(this.targetTestFolderPath + '/Handlers/FakeResponseHandler.cs'), this.templateOptions);
     }
 
-    const rds = this.templateOptions.addDatabase && this.templateOptions.database != "dynamodb" ? true : false;
+    const rds = this.templateOptions.addDatabase && this.templateOptions.database !== 'dynamodb' ? true : false;
 
     if (rds) {
       this.composeWith('microcore:entityframework', {
@@ -126,7 +132,7 @@ module.exports = BaseGenerator.extend({
           this.templateOptions.modelName,
         ]
       });
-    } else if (this.templateOptions.database === "dynamodb") {
+    } else if (this.templateOptions.database === 'dynamodb') {
       this.composeWith('microcore:dynamodb', {
         targetFolderPath: this.targetFolderPath,
         targetTestFolderPath: this.targetTestFolderPath,
@@ -134,7 +140,7 @@ module.exports = BaseGenerator.extend({
           this.templateOptions.namespace,
           this.templateOptions.appname,
           this.templateOptions.createModel,
-          this.templateOptions.modelName,
+          this.templateOptions.modelName
         ]
       });
     }
@@ -195,26 +201,28 @@ module.exports = BaseGenerator.extend({
   },
 
   install: function () {
-    let sudoCmd = "";
+    let sudoCmd = '';
     // Run command in privleged mode on OSX
-    if (os.platform() === "darwin") {
-      sudoCmd = "sudo ";
+
+    if (os.platform() === 'darwin') {
+      sudoCmd = 'sudo ';
     }
     var exec = require('child_process').exec;
     var project = this.destinationPath();
 
-    this.log(chalk.green.bold("Running: 'dotnet restore " + this.targetFolderPath + "'..."));
+    this.log(chalk.green.bold('Running: dotnet restore ' + this.targetFolderPath + '...'));
     process.chdir(this.destinationPath(this.targetFolderPath));
     var restoreProcess = exec(sudoCmd + 'dotnet restore', (error, stdout, stderr) => {
       process.chdir(this.destinationPath(this.targetTestFolderPath));
-      this.log(chalk.green.bold("Running: 'dotnet restore " + this.targetTestFolderPath + "'..."));
+      this.log(chalk.green.bold('Running: dotnet restore ' + this.targetTestFolderPath + '...'));
       var restoreTestProcess = exec(sudoCmd + 'dotnet restore', (trerror, trstdout, trstderr) => {
-        this.log(chalk.green.bold("Running: 'dotnet test'..."));
+        this.log(chalk.green.bold('Running: dotnet test...'));
         var testProsses = exec(sudoCmd + 'dotnet test', (terror, tstdout, tstderr) => {
-          if (terror != null) {
+          if (terror !== null) {
             this.log(terror);
           } else {
-            //If vscode files selected, be a nice guy and open it for them.
+            // If vscode files selected, be a nice guy and open it for them.
+
             if (this.templateOptions.vscode) {
               process.chdir(project);
               exec(sudoCmd + 'code .', (verror, vstdout, vstderr) => {});
@@ -248,11 +256,10 @@ module.exports = BaseGenerator.extend({
       authentication: true,
       portNumber: this.props.portNumber,
       vscode: this.props.vscode,
-      //Arguments
       username: this.options.username,
       email: this.options.email,
       guid: guid.v4(),
-      idType: this.props.addDatabase && this.props.database === "dynamodb" ? "string" : "long"
+      idType: this.props.addDatabase && this.props.database === 'dynamodb' ? 'string' : 'long'
     };
 
     if (this.props.kafkaConsumerTopics) {

@@ -10,7 +10,7 @@ using Amazon.DynamoDBv2.Model;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2;
 <%_ } _%>
-<%_ if(addDatabase && database != 'dynamodb') { _%>
+<%_ if(addDatabase && database !== 'dynamodb') { _%>
 using Microsoft.EntityFrameworkCore;
 <%_ } _%>
 using Serilog;
