@@ -18,6 +18,14 @@ This project is a .NET Core generator. This is a scaffolding template engine for
 ```bash
 npm install -g yo
 ```
+```bash
+npm install -g generator-microcore
+```
+
+## Running
+```bash
+yo generator-microcore
+```
 
 ## Debugging
 
