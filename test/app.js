@@ -12,7 +12,7 @@ describe('generator-microcore:app', function () {
 
   it('creates files', function () {
     assert.file([
-      'dummyfile.txt'
+      'contributors.txt'
     ]);
   });
 });

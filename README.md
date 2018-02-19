@@ -1,4 +1,4 @@
-# Yeoman Microcore Generator
+# Yeoman Microcore Generator [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 
 This project is a .NET Core generator. This is a scaffolding template engine for creating new microservices and angular 5 + Redux (Coming soon) apps.
 
