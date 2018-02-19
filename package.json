@@ -4,7 +4,8 @@
   "description": "This generator is used for creating microservices and angular5 applications.",
   "homepage": "https://github.com/bryjshed/generator-microcore",
   "author": {
-    "name": "bryjshed"
+    "name": "bryjshed",
+    "url": "https://github.com/bryjshed"
   },
   "files": [
     "generators"
@@ -43,7 +44,10 @@
       "linebreak-style": 0
     }
   },
-  "repository": "/generator-microcore",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bryjshed/generator-microcore.git"
+  },
   "scripts": {
     "prepublish": "gulp prepublish",
     "test": "gulp"
