@@ -190,7 +190,7 @@ namespace <%= namespace %>.Tests
             var repo = app.ApplicationServices.GetService<I<%= modelName %>Repository>();
             RunMigrationAndSeed(provisionDynamodb, repo);
             <%_ } else { _%>
-            var context = app.ApplicationServices.GetService<MyTestContext>();
+            var context = app.ApplicationServices.GetService<<%= appname %>Context>();
             RunMigrationAndSeed(context);
             <%_ } _%>
             <%_ } _%>
