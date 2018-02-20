@@ -20,7 +20,7 @@ module.exports = BaseGenerator.extend({
     this.argument('serviceDtoName', {
       type: String,
       required: true
-    });
+    })
   },
   initializing: function () {
     this.templateOptions = this._createTemplateOptions();
