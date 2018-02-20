@@ -22,9 +22,14 @@ npm install -g yo
 npm install -g generator-microcore
 ```
 
+## Update
+```bash
+npm -g update generator-microcore
+```
+
 ## Running
 ```bash
-yo generator-microcore
+yo microcore
 ```
 
 ## Debugging
