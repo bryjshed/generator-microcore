@@ -58,7 +58,7 @@ module.exports = BaseGenerator.extend({
   },
 
   writing: function () {
-    this.fs.copyTpl(this.templatePath('.gitignore'), this.destinationPath('.gitignore'), this.props);
+    this.fs.copyTpl(this.templatePath('gitignoretemplate.txt'), this.destinationPath('.gitignore'), this.props);
     this.fs.copyTpl(this.templatePath('contributors.txt'), this.destinationPath('contributors.txt'), this.props);
     switch (this.props.type) {
       case 'microservice':
