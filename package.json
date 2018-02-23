@@ -1,6 +1,6 @@
 {
   "name": "generator-microcore",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "This generator is used for creating microservices and angular5 applications.",
   "homepage": "https://github.com/bryjshed/generator-microcore",
   "author": {

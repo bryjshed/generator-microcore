@@ -78,20 +78,17 @@ namespace <%= namespace %>
         {
             var appSettings = new AppSettings();
             Configuration.GetSection("AppSettings").Bind(appSettings);
-            
-            services.AddSingleton(appSettings);
-            
-            services.AddMvcCore(opt =>
-            {
+
+            services.AddMvc(opt => {
                 if (appSettings.GlobalExceptionFilterEnabled)
                 {
                     opt.Filters.Add(new GlobalExceptionFilter(_loggerFactory));
                 }
                 opt.Filters.Add(new ValidateModelStateAttribute()); // Add global model state validation
             })
-                .AddDataAnnotations()
-                .AddJsonFormatters(j => j.ContractResolver = new CamelCasePropertyNamesContractResolver())
-                .AddApiExplorer();
+            .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
+            
+            services.AddSingleton(appSettings);
 
             <%_ if(authentication) { _%>
             // Setup authentication
@@ -124,7 +121,6 @@ namespace <%= namespace %>
             AddEntityFramework(services);
             <%_ } _%>
             AddExternalServices(services);
-            services.AddMvc();
         }
         <%_ if(authentication) { _%>
 
@@ -134,7 +130,6 @@ namespace <%= namespace %>
         /// <param name="services">The collection of services to add.</param>
         public virtual IServiceCollection AddJwtAuthServices(IServiceCollection services)
         {
-
             //  Add Authorization
             services.AddAuthorization(options =>
             {
@@ -172,7 +167,6 @@ namespace <%= namespace %>
             };
             services.AddSingleton<JwtBearerOptions>(jwt);
 
-
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -194,9 +188,6 @@ namespace <%= namespace %>
         /// <param name="app">The application configuration object.</param>
         /// <param name="env">The environment configuration object.</param>
         /// <param name="loggerFactory">The logger factory object.</param>
-        <%_ if(authentication) { _%>
-        /// <param name="jwtOptions">The jwt options settings.</param>
-        <%_ } _%>
         <%_ if(createModel && database === 'dynamodb') { _%>
         /// <param name="<%= modelNameCamel %>Repository">The <see cref="<%= modelName %>"/> db Repository.</param>
         <%_ } _%>
@@ -210,9 +201,6 @@ namespace <%= namespace %>
             IApplicationBuilder app,
             IHostingEnvironment env,
             ILoggerFactory loggerFactory,
-        <%_ if(authentication) { _%>
-            JwtBearerOptions jwtOptions,
-        <%_ } _%>
         <%_ if(database === 'dynamodb') { _%>
             <%_ if(createModel) { _%>
             I<%= modelName %>Repository <%= modelNameCamel %>Repository,
@@ -358,6 +346,7 @@ namespace <%= namespace %>
             // Enable middleware to serve generated Swagger as a JSON endpoint
             string baseDirectory = Configuration["NGINX_REQUEST_URI"] ?? "/";
 
+            // Comment out before running dotnet ef migrations
             app.UseSwagger(c =>
             {
                 c.PreSerializeFilters.Add((swagger, httpReq) => swagger.BasePath = baseDirectory);
