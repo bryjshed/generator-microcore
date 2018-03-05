@@ -62,7 +62,6 @@ module.exports = BaseGenerator.extend({
     this.fs.copyTpl(this.templatePath('src/appsettings.dev.json'), this.destinationPath(this.targetFolderPath + '/appsettings.dev.json'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('src/appsettings.qa.json'), this.destinationPath(this.targetFolderPath + '/appsettings.qa.json'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('src/appsettings.staging.json'), this.destinationPath(this.targetFolderPath + '/appsettings.staging.json'), this.templateOptions);
-    this.fs.copyTpl(this.templatePath('src/appsettings.hotfix.json'), this.destinationPath(this.targetFolderPath + '/appsettings.hotfix.json'), this.templateOptions);
 
     this.fs.copyTpl(this.templatePath('src/Dockerfile'), this.destinationPath(this.targetFolderPath + '/Dockerfile'), this.templateOptions);
     this.fs.copyTpl(this.templatePath('src/docker-compose.debug.yml'), this.destinationPath(this.targetFolderPath + '/docker-compose.debug.yml'), this.templateOptions);
