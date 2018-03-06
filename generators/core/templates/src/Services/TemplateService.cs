@@ -31,7 +31,7 @@ namespace <%= namespace %>
         /// Initializes a new instance of the <see cref="<%= appname %>Service"/> class.
         /// </summary>
         <%_ if(createModel) { _%>
-        /// <param name="<%= modelNameCamel %>Repository">The <see cref="<%= appname %>"/> database repository.</param>
+        /// <param name="<%= modelNameCamel %>Repository">The <see cref="<%= modelName %>"/> database repository.</param>
         <%_ } _%>
         /// <param name="logger">The log handler for the controller.</param>
         <%_ if(kafka) { _%>

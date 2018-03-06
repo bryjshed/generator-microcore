@@ -61,6 +61,7 @@ module.exports = BaseGenerator.extend({
     const options = {
       namespace: this.options.namespace,
       appname: this.options.appname,
+      appnameCamel: this.toCamelCase(this.options.appname),
       controllerName: this.options.controllerName,
       addDatabase: this.options.addDatabase,
       database: this.options.database,

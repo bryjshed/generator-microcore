@@ -25,19 +25,19 @@ namespace <%= namespace %>
     {
         private readonly ILogger _logger;
 
-        private readonly I<%= modelName %>Service _<%= modelNameCamel %>Service;
+        private readonly I<%= appname %>Service _<%= appnameCamel %>Service;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="<%= controllerName %>Controller"/> class.
         /// </summary>
         /// <param name="logger">The log handler for the controller.</param>
-        /// <param name="<%= modelNameCamel %>Service">The <see cref="<%= modelName %>"/> service.</param>
+        /// <param name="<%= appnameCamel %>Service">The app service.</param>
         public <%= controllerName %>Controller(
             ILogger<<%= controllerName %>Controller> logger,
-            I<%= modelName %>Service <%= modelNameCamel %>Service)
+            I<%= appname %>Service <%= appnameCamel %>Service)
         {
             _logger = logger;
-            _<%= modelNameCamel %>Service = <%= modelNameCamel %>Service;
+            _<%= appnameCamel %>Service = <%= appnameCamel %>Service;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace <%= namespace %>
         <%_ } _%>
         public async Task<IActionResult> Create<%= modelName %>([FromBody] Create<%= modelName %>Dto dto)
         {
-            var retDto = await _<%= modelNameCamel %>Service.Save<%= modelName %>Async(dto, HttpContext.GetUser());
+            var retDto = await _<%= appnameCamel %>Service.Save<%= modelName %>Async(dto, HttpContext.GetUser());
 
             return CreatedAtRoute("Get<%= modelName %>", new { controller = "<%= modelName %>", id = retDto.Id }, retDto);
         }
@@ -80,7 +80,7 @@ namespace <%= namespace %>
         {
             try
             {
-                await _<%= modelNameCamel %>Service.Update<%= modelName %>Async(id, dto, HttpContext.GetUser());
+                await _<%= appnameCamel %>Service.Update<%= modelName %>Async(id, dto, HttpContext.GetUser());
             }
             catch (NotFoundException)
             {
@@ -105,7 +105,7 @@ namespace <%= namespace %>
         <%_ } _%>
         public async Task<IActionResult> Get<%= modelName %>(<%= idType %> id)
         {
-            var model = await _<%= modelNameCamel %>Service.Get<%= modelName %>Async(id, HttpContext.GetUser());
+            var model = await _<%= appnameCamel %>Service.Get<%= modelName %>Async(id, HttpContext.GetUser());
             if (model == null)
             {
               _logger.LogWarning("<%= modelName %> Not Found: {Id}", id);
@@ -133,7 +133,7 @@ namespace <%= namespace %>
             _logger.LogInformation("Search <%= modelNameCamel %>: {@search}");
             try
             {
-                var results = await _<%= modelNameCamel %>Service.Find<%= modelName %>Async(dto, HttpContext.GetUser());
+                var results = await _<%= appnameCamel %>Service.Find<%= modelName %>Async(dto, HttpContext.GetUser());
                 return Ok(results);
             }
             catch (Exception e)
@@ -162,7 +162,7 @@ namespace <%= namespace %>
         <%_ } _%>
         public async Task<IActionResult> Get<%= modelName %>s([FromQuery] Search<%= modelName %>Dto dto)
         {
-            var results = await _<%= modelNameCamel %>Service.Find<%= modelName %>Async(dto, HttpContext.GetUser());
+            var results = await _<%= appnameCamel %>Service.Find<%= modelName %>Async(dto, HttpContext.GetUser());
             return Ok(results);
         }
         <%_ } _%>
